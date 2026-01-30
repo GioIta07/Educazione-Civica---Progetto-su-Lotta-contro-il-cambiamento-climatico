@@ -2,6 +2,7 @@ import tkinter as tk
 import random
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from flask import Flask, request, jsonify
 
 # === STATO ===
 anno = 1
