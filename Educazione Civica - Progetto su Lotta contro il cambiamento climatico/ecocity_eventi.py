@@ -3,7 +3,6 @@ import random
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from flask import Flask, request, jsonify
-import tkinter as tk
 
 # === STATO ===
 anno = 1
@@ -15,9 +14,7 @@ temperatura = 1.0
 LOL = random.randint(1, 40)
 LOL2 = random.randint(0, 40)
 sviluppo= 1
-TEMPO_MAX = 10  # secondi
-tempo_rimasto = TEMPO_MAX
-timer_id = None
+TEMPO_MAX = 60  # secondi
 #
 #
 #
