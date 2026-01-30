@@ -3,6 +3,26 @@ import random
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from flask import Flask, request, jsonify
+import time
+
+
+
+
+def aggiorna_testo(messaggio_evento=""):
+    testo.set(
+        f"Anno: {anno}\n"
+        f"Energia: {energia}\n"
+        f"Economia: {economia}\n"
+        f"Inquinamento: {inquinamento}\n"
+        f"Temperatura: {temperatura:.2f} °C"
+        f"{messaggio_evento}"
+        f"⏳ Tempo rimanente: {rimanente}s"
+    )
+
+
+
+
+
 
 # === STATO ===
 anno = 1
@@ -14,7 +34,9 @@ temperatura = 1.0
 LOL = random.randint(1, 40)
 LOL2 = random.randint(0, 40)
 sviluppo= 1
-TEMPO_MAX = 60  # secondi
+anno_time = 30 
+start_time = time.time()
+rimanente= int(0)
 #
 #
 #
@@ -35,7 +57,6 @@ def evento_climatico():
         eventi.append(("🌊 Alluvione", -15, -30, +5))
     if temperatura > 2.5 and LOL == 40:
         eventi.append(("❄️ Tempesta estrema", -25, -20, +5))
-
     
     
 
@@ -59,16 +80,14 @@ def evento_rand():
 
     if not eventirand:
         return ""
+    
+def aggiorna_timer():
+    global start_time, anno_time, economia, anno
+    tempo_passato = time.time() - start_time
+    rimanente = int(anno_time - tempo_passato)
 # === FUNZIONI ===
-def aggiorna_testo(messaggio_evento=""):
-    testo.set(
-        f"Anno: {anno}\n"
-        f"Energia: {energia}\n"
-        f"Economia: {economia}\n"
-        f"Inquinamento: {inquinamento}\n"
-        f"Temperatura: {temperatura:.2f} °C"
-        f"{messaggio_evento}"
-    )
+
+
 
 def aggiorna_grafici():
     ax.clear()
@@ -79,6 +98,20 @@ def aggiorna_grafici():
     ax.set_xlabel("Anno")
     ax.legend()
     canvas.draw()
+    
+if rimanente <= 0: 
+    # Penalità per inattività 
+    economia -= 10
+    
+    # Avanza l'anno senza scelta 
+    anni.append(anno) 
+    storico_temp.append(temperatura) 
+    storico_inq.append(inquinamento)
+    
+    aggiorna_grafici()
+    
+    anno += 1 
+    start_time = time.time() # reset timer
 
 def fine_gioco(msg):
     testo.set(msg)
@@ -86,10 +119,10 @@ def fine_gioco(msg):
         b.config(state="disabled")
 
 def scelta(tipo):
-    global anno, energia, economia, inquinamento, temperatura,sviluppo,tempo_rimasto, timer_id
+    global anno, energia, economia, inquinamento, temperatura,sviluppo
     # === Aggiungere Incidenti o eventi randomici ===
     
-    
+
     if tipo == "carbone":
         energia += 30
         economia += 20
@@ -118,10 +151,8 @@ def scelta(tipo):
 
     if inquinamento < 0:
         inquinamento = 0
-        
         temperatura += inquinamento * 0.005
         sviluppo+= 1
-        
 
 
 
@@ -170,12 +201,13 @@ for nome, tipo in [
     ("FastFoward","fastfoward")
 ]:
     b = tk.Button(frame_sx, text=nome, width=18,
-                  command=lambda t=tipo: scelta(t))
+                command=lambda t=tipo: scelta(t))
     b.pack(pady=2)
     pulsanti.append(b)
 
 fig, ax = plt.subplots(figsize=(5, 3))
 canvas = FigureCanvasTkAgg(fig, master=frame_dx)
 canvas.get_tk_widget().pack()
+
 
 root.mainloop()
