@@ -3,15 +3,24 @@ import random
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from flask import Flask, request, jsonify
+import tkinter as tk
 
 # === STATO ===
 anno = 1
-MAX_ANNI = 1000
+MAX_ANNI = 100
 energia = 100
 economia = 100
 inquinamento = 50
 temperatura = 1.0
 LOL = random.randint(1, 40)
+LOL2 = random.randint(0, 40)
+sviluppo= 1
+TEMPO_MAX = 10  # secondi
+tempo_rimasto = TEMPO_MAX
+timer_id = None
+#
+#
+#
 anni = []
 storico_temp = []
 storico_inq = []
@@ -30,6 +39,9 @@ def evento_climatico():
     if temperatura > 2.5 and LOL == 40:
         eventi.append(("❄️ Tempesta estrema", -25, -20, +5))
 
+    
+    
+
     if not eventi:
         return ""
 
@@ -42,6 +54,14 @@ def evento_climatico():
 
     return ""
 
+def evento_rand():
+    global energia, economia, inquinamento
+    eventirand = []
+    
+    
+
+    if not eventirand:
+        return ""
 # === FUNZIONI ===
 def aggiorna_testo(messaggio_evento=""):
     testo.set(
@@ -69,8 +89,10 @@ def fine_gioco(msg):
         b.config(state="disabled")
 
 def scelta(tipo):
-    global anno, energia, economia, inquinamento, temperatura
+    global anno, energia, economia, inquinamento, temperatura,sviluppo,tempo_rimasto, timer_id
     # === Aggiungere Incidenti o eventi randomici ===
+    
+    
     if tipo == "carbone":
         energia += 30
         economia += 20
@@ -82,17 +104,16 @@ def scelta(tipo):
         inquinamento -= 20
 
     elif tipo == "efficienza":
+        
         energia += 0
         economia += 10
         inquinamento -= 1
         
-        
-
     elif tipo == "nucleare":
         energia += 30
         economia += 5
         inquinamento += 5
-        if random.random() < 0.1:
+        if random.random() < 0.01:
             economia -= 40
             inquinamento += 40
             aggiorna_testo("\n☢️ INCIDENTE NUCLEARE!")
@@ -100,8 +121,12 @@ def scelta(tipo):
 
     if inquinamento < 0:
         inquinamento = 0
+        
+        temperatura += inquinamento * 0.005
+        sviluppo+= 1
+        
 
-    temperatura += inquinamento * 0.005
+
 
     evento = evento_climatico()
 
@@ -144,7 +169,8 @@ for nome, tipo in [
     ("Carbone", "carbone"),
     ("Rinnovabili", "rinnovabili"),
     ("Efficienza", "efficienza"),
-    ("Nucleare", "nucleare")
+    ("Nucleare", "nucleare"),
+    ("FastFoward","fastfoward")
 ]:
     b = tk.Button(frame_sx, text=nome, width=18,
                   command=lambda t=tipo: scelta(t))
