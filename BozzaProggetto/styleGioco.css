@@ -1,0 +1,139 @@
+/* Stili generali per permette la visualizzazione del gioco*/
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+img{
+    height: 100%;
+    width: 100%;
+}
+/* Stile dello schermo di introduzione*/
+.introScreen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    background: radial-gradient(circle, rgb(90, 90, 90), black 100%);
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.8s ease, visibility 0.8s;
+}
+.introScreen.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+.introScreen h1{
+    font-size: 80px;
+    margin-bottom: 10%;
+    --caratteri: 10;
+}
+.introScreen button{
+    all: unset;
+    cursor: pointer;
+    box-shadow: 5px 5px 9px rgba(0,0,0,0.2);
+    background-color: rgb(82, 82, 82);
+    color: white;
+    padding: 10px 20px;
+    font-size: 20px;
+    transition: background-color 1s ease, color 1s ease;
+    font-family:'Franklin Gothic Medium';
+    letter-spacing: 3px;
+    animation: bounce 1s infinite;
+}
+.introScreen button:hover {
+    background-color: rgb(161, 161, 161);
+    color: black;
+}
+/*Schermata di introduzione della storia*/
+.introScreenStoria{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    padding: 5% 15%;
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    background: radial-gradient(circle, rgb(90, 90, 90), black 100%);
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.8s ease, visibility 0.8s;
+}
+.introScreenStoria.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+.testoStoria h1{
+    font-size: 80px;
+    --caratteri: 12;
+}
+.immagineStoria{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 50%;
+    margin-bottom: 3%;
+}
+.immagineStoria img{
+    width: 60%;
+}
+.testoStoria{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3%;
+    width: 100%;
+    height: 50%;
+}
+/*Effetto delle slide*/
+.slides{
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+.slides.active {
+    display: block;
+}
+/* Effetto di scrittura*/
+.typingTesto{
+    display: inline-block;
+    max-width: fit-content;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid rgb(255, 255, 255); /* cursore */
+    font-family: monospace;
+    font-size: 24px;
+    animation: typing 2s steps(var(--caratteri)) forwards, blink 0.5s step-end infinite;
+}
+@keyframes typing {
+    0%   { width: 0; }
+    100% { width: calc(var(--caratteri) * 1ch); }
+}
+
+@keyframes blink {
+    50% { border-color: transparent }
+}
+/* Effetto di salto per il button*/
+@keyframes bounce {
+    0%, 20%, 60%, 100% {
+        transform: translateY(0px);
+    }
+    40% {
+        transform: translateY(-20%);
+    }
+    80% {
+        transform: translateY(-10%);
+    }
+}
