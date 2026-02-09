@@ -21,7 +21,6 @@ if (window.location.pathname.includes('inizioStoria.html')) {
     // Controlla se arriviamo da index.html
     if (sessionStorage.getItem('transitando') === 'true') {
         document.body.style.opacity = '0';
-        
         window.addEventListener('load', function() {
             document.body.style.opacity = '1';
             // Rimuovi il flag

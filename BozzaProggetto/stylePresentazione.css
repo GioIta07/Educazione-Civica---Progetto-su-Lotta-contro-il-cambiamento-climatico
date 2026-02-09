@@ -21,7 +21,7 @@ img{
     align-items: center;
     justify-content: center;
     z-index: 1;
-    background: radial-gradient(circle, rgb(90, 90, 90), black 100%);
+    background: radial-gradient(circle, rgb(73, 73, 73), black 100%);
     opacity: 1;
     visibility: visible;
     transition: opacity 0.8s ease, visibility 0.8s;
@@ -58,44 +58,40 @@ img{
     width: 100%;
     height: 100%;
     padding: 5% 15%;
-    background-color: black;
     color: white;
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     z-index: 1;
-    background: radial-gradient(circle, rgb(90, 90, 90), black 100%);
-    opacity: 1;
-    visibility: visible;
-    transition: opacity 0.8s ease, visibility 0.8s;
 }
-.introScreenStoria.fade-out {
-    opacity: 0;
-    visibility: hidden;
-}
-.testoStoria h1{
-    font-size: 80px;
-    --caratteri: 12;
-}
-.immagineStoria{
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    height: 50%;
-    margin-bottom: 3%;
-}
-.immagineStoria img{
-    width: 60%;
+.immagineEcoCity{
+    display: block;
+    position: fixed;
+    width: 102%;
+    left: -1%;
+    height: 100%;
+    opacity: 0.3;
+    z-index: 0;
+    animation: slideInfinito 5s linear infinite;
 }
 .testoStoria{
     display: flex;
     text-align: center;
     align-items: center;
     justify-content: center;
-    margin-top: 3%;
     width: 100%;
-    height: 50%;
+    height: 100%;
+}
+.testoStoria h1{
+    font-size: 30px;
+    --caratteri: 26;
+    text-shadow: 1px 1px 2px white;
+}
+#titoloIntroduzione{
+    font-size: 60px;
+    text-shadow: 2px 2px 4px white;
 }
 /*Effetto delle slide*/
 .slides{
@@ -135,5 +131,23 @@ img{
     }
     80% {
         transform: translateY(-10%);
+    }
+}
+/*Effetto slide*/
+@keyframes slideInfinito {
+    0% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(1%);
+    }
+    50% {
+        transform: translateX(0);
+    }
+    75% {
+        transform: translateX(1%);
+    }
+    100% {
+        transform: translateX(0);
     }
 }
