@@ -50,9 +50,10 @@ document.addEventListener('click', function() {
         document.getElementById('slideCinque').classList.add('active');
     }
 });
-
+let typingTimeout;
 // Effetto typing dinamico
 function typeWriter(element, text) {
+    clearTimeout(typingTimeout);
     let i = 0;
     let speed = 50;
     element.innerHTML = '';
@@ -61,7 +62,7 @@ function typeWriter(element, text) {
         if (i < text.length) {
             element.innerHTML += text.charAt(i);
             i++;
-            setTimeout(type, speed);
+            typingTimeout = setTimeout(type, speed);
         }
     }
     type();
