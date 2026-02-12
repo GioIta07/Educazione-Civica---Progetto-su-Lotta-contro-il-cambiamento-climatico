@@ -1,3 +1,4 @@
 import webview, os
-webview.create_window("Gioco", os.path.abspath("index.html"))
+script_dir = os.path.dirname(os.path.abspath(__file__))
+webview.create_window("Gioco", os.path.join(script_dir, "index.html"))
 webview.start()
