@@ -151,3 +151,30 @@ img{
         transform: translateX(0);
     }
 }
+/*Classi aggiunte dallo script dinamicamente*/
+.contenitoreTestoDinamico{
+    display: flex;
+    flex-direction: column;
+}
+.inputVisible {
+    margin-top: 10%;
+    opacity: 0;
+    text-align: center;
+    animation: fadeIn 1s forwards;
+}
+.buttonNome{
+    border: none;
+    margin-top: 20%;
+    opacity: 0;
+    background-color: white;
+    animation: fadeIn 10s forwards;
+    box-shadow: 2px 2px 1px rgba(255, 255, 255, 0.3);
+    transition: box-shadow 0.3s ease;
+}
+.buttonNome:hover {
+    box-shadow: 10px 10px 5px rgba(255, 255, 255, 0.3);
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 0.7; }
+}

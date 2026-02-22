@@ -1,5 +1,6 @@
 //Variabili globali
 let slideCorrente = 1;
+let terzaSlide = false;
 const totalSlide = 5; //da cambiare in aggiunta o rimozione di slide
 const vettoreTesti = 
 [
@@ -12,44 +13,62 @@ const vettoreTesti =
     //"Faccia però attenzione, perché ogni sua decisione determinerà se domani i cittadini accenderanno la luce o indosseranno una maschera antigas, quindi sta tutto nelle sue mani."
 ];
 
-// Effetto slide
-document.addEventListener('click', function() {
-    // Nascondi tutte le slide
-    document.querySelectorAll('.slides').forEach(slide => {
-        slide.classList.remove('active');
-    });
+// Avvia la funzione ad ogni click
+document.addEventListener('click', function(e) {
+    eventoClick()
+});
+// Effetto del cambio slide
+function eventoClick(){
+    //Evita di andare alla prossima slide con un click se sei alla terza
+    if(terzaSlide){
+        return;    
+    }
     // Passa alla slide successiva
     slideCorrente++;
+    console.log(slideCorrente);
     // Se superi l'ultima slide, torna alla prima
     if(slideCorrente > totalSlide) {
         slideCorrente = 1;
     }
-    // Mostra la slide corrente
-    if(slideCorrente === 1){
-        document.getElementById('slideUno').classList.add('active');  
-    } 
-    if(slideCorrente === 2){
-        document.getElementById('slideDue').classList.add('active'); 
-        const elemento = document.getElementById('typingTestoDinamicoZero');
-        let testo = vettoreTesti[0];
-        typeWriter(elemento, testo); 
-    } 
-    if(slideCorrente === 3){
-        document.getElementById('slideTre').classList.add('active');
-        const elemento = document.getElementById('typingTestoDinamicoUno');
-        let testo = vettoreTesti[1];
-        typeWriter(elemento, testo);
+    // Nascondi tutte le slide
+    document.querySelectorAll('.slides').forEach(slide => {
+        slide.classList.remove('active');
+    });
+    //Mostra la slide corrente
+    switch (slideCorrente)
+    {
+        case 1:
+            document.getElementById('slideUno').classList.add('active');  
+            break;
+        case 2:{
+            document.getElementById('slideDue').classList.add('active'); 
+            const elemento = document.getElementById('typingTestoDinamicoZero');
+            let testo = vettoreTesti[0];
+            typeWriter(elemento, testo); 
+            break;
+        }
+        case 3:{
+            document.getElementById('slideTre').classList.add('active');
+            const elemento = document.getElementById('typingTestoDinamicoUno');
+            let testo = vettoreTesti[1];
+            typeWriter(elemento, testo);
+            //Siamo alla terza slide
+            terzaSlide = true;
+            break;
+        }
+        case 4:{
+            document.getElementById('slideQuattro').classList.add('active');
+            const elemento = document.getElementById('typingTestoDinamicoDue');
+            let testo = vettoreTesti[2];
+            testo = testo.replace("*nickname*", persona.nome);
+            typeWriter(elemento, testo);
+            break;
+        }
+        case 5:
+            document.getElementById('slideCinque').classList.add('active');
+            break;
     }
-    if(slideCorrente === 4){
-        document.getElementById('slideQuattro').classList.add('active');
-        const elemento = document.getElementById('typingTestoDinamicoDue');
-        let testo = vettoreTesti[2];
-        typeWriter(elemento, testo);
-    }
-    if(slideCorrente === 5){
-        document.getElementById('slideCinque').classList.add('active');
-    }
-});
+}
 let typingTimeout;
 // Effetto typing dinamico
 function typeWriter(element, text) {
@@ -64,11 +83,41 @@ function typeWriter(element, text) {
             i++;
             typingTimeout = setTimeout(type, speed);
         }
+        else{
+            // Crea casella d'input una volta viene scritto tutto, nella terza slide
+            if(slideCorrente === 3){
+                ottieniNomeGiocatore();
+            }
+        }
     }
     type();
-    /*if(slideCorrente === 3)
-    {
-        nomePlayer();
-    }
-    */
+}
+
+function ottieniNomeGiocatore(){
+    const contenitoreSlide = document.getElementById("inserimentoNome");
+    contenitoreSlide.classList.add("contenitoreTestoDinamico")
+    const contenitoreElementiDinamici = document.createElement("div");
+
+    const contenitoreInput = document.createElement("div");
+    const contenitoreButton = document.createElement("div");
+    const casellaInput = document.createElement("input");
+    casellaInput.classList.add("inputVisible");
+    casellaInput.placeholder = "Inserisci il tuo nome"
+    const buttonConferma = document.createElement("button");
+    buttonConferma.classList.add("buttonNome");
+    buttonConferma.textContent = "Conferma"
+
+    contenitoreSlide.appendChild(contenitoreElementiDinamici);
+    contenitoreElementiDinamici.appendChild(contenitoreInput);
+    contenitoreElementiDinamici.appendChild(contenitoreButton);
+    contenitoreInput.appendChild(casellaInput);
+    contenitoreButton.appendChild(buttonConferma);
+
+    buttonConferma.addEventListener("click", (e) => {
+        e.stopPropagation(); // ← blocca la propagazione al document
+        persona.nome = casellaInput.value;
+        terzaSlide = false;
+        contenitoreElementiDinamici.remove();
+        eventoClick();
+    });
 }

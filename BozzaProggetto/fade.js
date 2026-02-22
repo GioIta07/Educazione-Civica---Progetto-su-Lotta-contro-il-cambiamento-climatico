@@ -12,12 +12,12 @@ function startStory() {
     document.body.style.opacity = '0';
     
     setTimeout(function() {
-        window.location.href = 'inizioStoria.html';
+        window.location.href = 'storia.html';
     }, 500);
 }
 
 // Controlla se siamo nella pagina della storia e se arriviamo dalla transizione
-if (window.location.pathname.includes('inizioStoria.html')) {
+if (window.location.pathname.includes('storia.html')) {
     // Controlla se arriviamo da index.html
     if (sessionStorage.getItem('transitando') === 'true') {
         document.body.style.opacity = '0';
