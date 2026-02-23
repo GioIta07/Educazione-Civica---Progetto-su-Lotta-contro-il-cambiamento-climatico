@@ -38,6 +38,7 @@
                 <button class="btn-rinnovabili" onclick="scelta('rinnovabili')">☀️ Rinnovabili</button>
                 <button class="btn-efficienza" onclick="scelta('efficienza')">💡 Efficienza</button>
                 <button class="btn-nucleare" onclick="scelta('nucleare')">☢️ Nucleare</button>
+                <button class="btn-nucleare" onclick="scelta('economia')">💰 Economia</button>
             </div>
             <div id="eventMessage"></div>
         </div>
@@ -163,6 +164,10 @@
                 energia += 30;
                 economia += 20;
                 inquinamento += 25;
+            }else if (tipo === 'economia') {
+                energia -= 30;
+                economia += 50;
+                inquinamento += 50;
             } else if (tipo === 'rinnovabili') {
                 energia += 15;
                 economia -= 5;
