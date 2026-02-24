@@ -1,10 +1,12 @@
 //Variabili globali
 let slideCorrente = 1;
-let terzaSlide = false;
-const totalSlide = 5; //da cambiare in aggiunta o rimozione di slide
+let quintaSlide = false;
+const totalSlide = 7; //da cambiare in aggiunta o rimozione di slide
 const vettoreTesti = 
 [
-    "Sei stato appena eletto Primo Ministro di Steamington, una capitale di Weslandia in piena crisi energetica. Il popolo chiede elettricità a basso costo, ma le coste si stanno alzando a causa del clima. ",
+    "Sei stato appena eletto Primo Ministro a vita di Steamington, la capitale di Weslandia è in piena crisi energetica.",
+    "Il paese è sempre stato il centro nevralgico della tecnologia e delle energie. Ora come Governatore devi mantenere lo status quo del paese, evitando che ci siano malcontenti, crisi energetiche, rischi biologici o crollo del mercato.",
+    "Sarai in grado di non mandare in rovina il paese in meno del tuo mandato?",
     "Benvenuto nel suo ufficio Primo Ministro. Come vuole che la chiami?",
     "Piacere *nickname*, lo so che oggi è il suo primo giorno, ma necessitiamo del suo aiuto per mantenere la gestione delle centrali di Steamington, le quali, ultimamente stanno riscontrando dei problemi con la sostenibilità ambientale.",
     //Impostazione dinamica dei discorsi, dei tipi di alert UI friendly
@@ -20,15 +22,12 @@ document.addEventListener('click', function(e) {
 // Effetto del cambio slide
 function eventoClick(){
     //Evita di andare alla prossima slide con un click se sei alla terza
-    if(terzaSlide){
+    if(quintaSlide){
         return;    
     }
-    // Passa alla slide successiva
-    slideCorrente++;
-    console.log(slideCorrente);
-    // Se superi l'ultima slide, torna alla prima
-    if(slideCorrente > totalSlide) {
-        slideCorrente = 1;
+    // Passa alla slide successiva se non superi il numero di slide disponibili
+    if(slideCorrente <= totalSlide) {
+        slideCorrente++;
     }
     // Nascondi tutte le slide
     document.querySelectorAll('.slides').forEach(slide => {
@@ -48,33 +47,45 @@ function eventoClick(){
             break;
         }
         case 3:{
-            document.getElementById('slideTre').classList.add('active');
+            document.getElementById('slideTre').classList.add('active'); 
             const elemento = document.getElementById('typingTestoDinamicoUno');
             let testo = vettoreTesti[1];
-            typeWriter(elemento, testo);
-            //Siamo alla terza slide
-            terzaSlide = true;
+            typeWriter(elemento, testo); 
             break;
         }
         case 4:{
-            document.getElementById('slideQuattro').classList.add('active');
+            document.getElementById('slideQuattro').classList.add('active'); 
             const elemento = document.getElementById('typingTestoDinamicoDue');
             let testo = vettoreTesti[2];
+            typeWriter(elemento, testo); 
+            break;
+        }
+        case 5:{
+            document.getElementById('slideCinque').classList.add('active');
+            const elemento = document.getElementById('typingTestoDinamicoTre');
+            let testo = vettoreTesti[3];
+            //Siamo alla quinta slide
+            quintaSlide = true;
+            typeWriter(elemento, testo);
+            break;
+        }
+        case 6:{
+            document.getElementById('slideSei').classList.add('active');
+            const elemento = document.getElementById('typingTestoDinamicoQuattro');
+            let testo = vettoreTesti[4];
             testo = testo.replace("*nickname*", persona.nome);
             typeWriter(elemento, testo);
             break;
         }
-        case 5:{document.getElementById('slideCinque').classList.add('active');
-
-    // Aspetta 2 secondi e poi avvia il gioco
-    setTimeout(() => {
-        avviaGioco();
-    }, 2000);
-
-    break;}
-            
+        case 7:{document.getElementById('slideSette').classList.add('active');
+            // Aspetta 2 secondi e poi avvia il gioco
+            setTimeout(() => {
+                avviaGioco();
+            }, 2000);
+            break;
+        }
     }
-}
+}           
 let typingTimeout;
 // Effetto typing dinamico
 function typeWriter(element, text) {
@@ -91,7 +102,7 @@ function typeWriter(element, text) {
         }
         else{
             // Crea casella d'input una volta viene scritto tutto, nella terza slide
-            if(slideCorrente === 3){
+            if(quintaSlide){
                 ottieniNomeGiocatore();
             }
         }
@@ -122,7 +133,7 @@ function ottieniNomeGiocatore(){
     buttonConferma.addEventListener("click", (e) => {
         e.stopPropagation(); // ← blocca la propagazione al document
         persona.nome = casellaInput.value;
-        terzaSlide = false;
+        quintaSlide = false;
         contenitoreElementiDinamici.remove();
         eventoClick();
     });
