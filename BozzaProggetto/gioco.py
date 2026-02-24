@@ -1,4 +1,14 @@
-import webview, os
-script_dir = os.path.dirname(os.path.abspath(__file__))
-webview.create_window("Gioco", os.path.join(script_dir, "gioco.html"))
+import webview
+
+def apri_gioco():
+    webview.create_window("Gioco", "gioco.html")
+    webview.windows[0].destroy()
+
+class Api:
+    def start_game(self):
+        apri_gioco()
+
+api = Api()
+
+webview.create_window("Intro", "storia.html", js_api=api)
 webview.start()

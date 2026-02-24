@@ -64,9 +64,15 @@ function eventoClick(){
             typeWriter(elemento, testo);
             break;
         }
-        case 5:
-            document.getElementById('slideCinque').classList.add('active');
-            break;
+        case 5:{document.getElementById('slideCinque').classList.add('active');
+
+    // Aspetta 2 secondi e poi avvia il gioco
+    setTimeout(() => {
+        avviaGioco();
+    }, 2000);
+
+    break;}
+            
     }
 }
 let typingTimeout;
@@ -120,4 +126,8 @@ function ottieniNomeGiocatore(){
         contenitoreElementiDinamici.remove();
         eventoClick();
     });
+}
+
+function avviaGioco(){
+    window.location.href = "gioco.html";
 }

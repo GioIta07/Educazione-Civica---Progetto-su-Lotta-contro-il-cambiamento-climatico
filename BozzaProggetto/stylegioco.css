@@ -1,0 +1,212 @@
+/* ============================= */
+/* 🎛️ VARIABILI GLOBALI */
+/* ============================= */
+
+:root {
+
+    /* 🎨 Colori principali */
+    --colore-sfondo: #003356;
+    --colore-pannello: #ffffff;
+    --colore-testo: #333;
+    --colore-titolo: #1e88e5;
+
+    /* 🌍 Colori statistiche */
+    --colore-energia: #fbc02d;
+    --colore-economia: #43a047;
+    --colore-inquinamento: #e53935;
+    --colore-temperatura: #fb8c00;
+
+    /* 🔘 Bottoni */
+    --colore-carbone: #5d4037;
+    --colore-rinnovabili: #fdd835;
+    --colore-efficienza: #00acc1;
+    --colore-nucleare: #8e24aa;
+    --colore-economia-btn: #2e7d32;
+
+    --colore-testo-bottoni: #ffffff;
+    --bordi-bottoni: 8px;
+
+    /* 📦 Layout */
+    --larghezza-panel: 420px;
+    --radius-pannello: 12px;
+    --ombra-pannello: 0 8px 20px rgba(0,0,0,0.1);
+
+    /* ⏱ Timer */
+    --colore-timer: #ff5252;
+
+    /* 📊 Grafico */
+    --colore-grafico-bg: #ffffff;
+
+    /* 📏 Spaziature */
+    --padding-generale: 20px;
+    --gap-layout: 30px;
+
+    /* 🔤 Font */
+    --font-principale: 'Segoe UI', sans-serif;
+}
+
+
+/* ============================= */
+/* 🌍 BODY */
+/* ============================= */
+
+body {
+    margin: 0;
+    font-family: var(--font-principale);
+    background-color: var(--colore-sfondo);
+    color: var(--colore-testo);
+}
+
+
+/* ============================= */
+/* 📦 LAYOUT GENERALE */
+/* ============================= */
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: var(--gap-layout);
+    padding: 40px;
+}
+
+
+/* ============================= */
+/* 📘 PANNELLO SINISTRO */
+/* ============================= */
+
+.panel-left {
+    width: var(--larghezza-panel);
+    background: var(--colore-pannello);
+    padding: var(--padding-generale);
+    border-radius: var(--radius-pannello);
+    box-shadow: var(--ombra-pannello);
+}
+
+.panel-left h1 {
+    color: var(--colore-titolo);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+/* ============================= */
+/* ⏳ TIMER */
+/* ============================= */
+
+.timer {
+    text-align: center;
+    font-weight: bold;
+    color: var(--colore-timer);
+    margin-bottom: 20px;
+}
+
+
+/* ============================= */
+/* 📊 STATISTICHE */
+/* ============================= */
+
+.stats {
+    margin-bottom: 20px;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.stat-label {
+    font-weight: 600;
+}
+
+.stat-value {
+    font-weight: bold;
+}
+
+
+/* ============================= */
+/* 🔘 BOTTONI */
+/* ============================= */
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+button {
+    padding: 10px;
+    border: none;
+    border-radius: var(--bordi-bottoni);
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s ease;
+    color: var(--colore-testo-bottoni);
+}
+
+/* Effetto hover */
+button:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+/* Bottoni specifici */
+.btn-carbone {
+    background: var(--colore-carbone);
+}
+
+.btn-rinnovabili {
+    background: var(--colore-rinnovabili);
+    color: #000;
+}
+
+.btn-efficienza {
+    background: var(--colore-efficienza);
+}
+
+.btn-nucleare {
+    background: var(--colore-nucleare);
+}
+
+.btn-economia {
+    background: var(--colore-economia-btn);
+}
+
+
+/* ============================= */
+/* 📘 PANNELLO DESTRO */
+/* ============================= */
+
+.panel-right {
+    flex: 1;
+    background: var(--colore-pannello);
+    padding: var(--padding-generale);
+    border-radius: var(--radius-pannello);
+    box-shadow: var(--ombra-pannello);
+}
+
+.chart-container {
+    background: var(--colore-grafico-bg);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+
+/* ============================= */
+/* 📱 RESPONSIVE */
+/* ============================= */
+
+@media (max-width: 900px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .panel-left,
+    .panel-right {
+        width: 100%;
+    }
+}

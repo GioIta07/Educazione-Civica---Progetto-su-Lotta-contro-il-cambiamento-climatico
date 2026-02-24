@@ -7,6 +7,7 @@
     <title>Gioco</title>
 </head>
 <body>
+    <script></script>
     <img src="immagini\ecocity.png" class="immagineEcoCity">
     <div class="introScreenStoria">
         <div class="slides active" id="slideUno">
@@ -32,11 +33,9 @@
         <!--Parte da fare-->
         <div class="slides" id="slideCinque">
             <div class="testoStoria">
-                <h1 id="typingTestoDinamicoTre">Il gioco va qua</h1>
-                <!--Qua è possibile già inserire il gioco-->
-            </div>
-        </div>
-    </div>
+                <h1 id="typingTestoDinamicoTre"></h1>
+                loading...
+                <script>pywebview.api.start_game();</script>
     <script src="fade.js"></script>
     <script src="giocatore.js"></script>
     <script src="Slide_Typing.js"></script>
