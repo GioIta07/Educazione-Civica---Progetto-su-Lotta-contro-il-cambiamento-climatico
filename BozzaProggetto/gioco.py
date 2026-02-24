@@ -10,5 +10,5 @@ class Api:
 
 api = Api()
 
-webview.create_window("Intro", "storia.html", js_api=api)
+webview.create_window("Intro", "index.html", js_api=api)
 webview.start()
