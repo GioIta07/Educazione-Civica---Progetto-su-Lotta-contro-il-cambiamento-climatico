@@ -37,7 +37,6 @@
             <div class="buttons">
                 <button class="btn-carbone" onclick="scelta('carbone')">🏭 Carbone</button>
                 <button class="btn-rinnovabili" onclick="scelta('rinnovabili')">☀️ Rinnovabili</button>
-                <button class="btn-efficienza" onclick="scelta('efficienza')">💡 Efficienza</button>
                 <button class="btn-nucleare" onclick="scelta('nucleare')">☢️ Nucleare</button>
                 <button class="btn-nucleare" onclick="scelta('economia')">💰 Economia</button>
             </div>
@@ -56,7 +55,7 @@
         const MAX_ANNI = 100;
         let energia = 10;
         let economia = 100;
-        let inquinamento = 50;
+        let inquinamento = 20;
         let temperatura = 1.0;
         let LOL = Math.floor(Math.random() * 40) + 1;
         let sviluppo = 1;
@@ -64,6 +63,8 @@
         let anniPassati = [];
         let storicoTemp = [];
         let storicoInq = [];
+        let odionucleare= 0;
+        let calmovento=0;
         // Timer
         const annoTime = 30;
         let timeRemaining = annoTime;
@@ -130,14 +131,53 @@
         }
         function eventoClimatico() {
             const eventi = [];
+            if (inquinamento < 20 && LOL === 9) {
+                eventi.push({ nome: "🎪 Festival della luce", energia: -30, economia: +30, inquinamento: -0 });
+            }
+            if (inquinamento > 80 && LOL === 24) {
+                eventi.push({ nome: "😷 Emergienza sanitaria", energia: -10, economia: -40, inquinamento: -0 });
+            }
+            if (inquinamento > 100 && LOL>21 && lol <=24) {
+                eventi.push({ nome: "😷 Emergienza sanitaria", energia: -10, economia: -40, inquinamento: -0 });
+            }
+            if (LOL === 25 ) {
+                eventi.push({ nome: " Basso vento ", energia: -0, economia: -0, inquinamento: -0, calmovento: +5 });
+            }
+            if (LOL === 26 ) {
+                eventi.push({ nome: "💵 Investitore ", energia: -30, economia: -30, inquinamento: -0 });
+            }
+            if (LOL === 27 ) {
+                eventi.push({ nome: "📰 Referendum popolare ", energia: +0, economia: -0, inquinamento: -0, odionucleare:+5 });
+            }
+            if (LOL === 28 && tipo === 'rinnovabili') {
+                eventi.push({ nome: "💡 Efficenza ", energia: +15, economia: -0, inquinamento: -0 });
+            }
+            if (LOL === 29) {
+                eventi.push({ nome: "🛠️ Guasto", energia: -50, economia: -20, inquinamento: +0 });
+            }
+            if (LOL === 39) {
+                eventi.push({ nome: "🚶‍➡️Domenica a piedi", energia: +10, economia: -20, inquinamento: -20 });
+            }
+            if (LOL === 35 && tipo === 'carbone') {
+                eventi.push({ nome: "🪧 Protesta", energia: -0, economia: -20, inquinamento: -0 });
+            }
+            if (LOL === 17) {
+                eventi.push({ nome: "⛏️ Mina di carbone", energia: -10, economia: +50, inquinamento: 15 });
+            }
+            if (LOL === 11) {
+                eventi.push({ nome: "❄️ Ondata di gelo", energia: -30, economia: -25, inquinamento: 5 });
+            }
             if (temperatura > 1.5 && LOL === 10) {
-                eventi.push({ nome: "🔥 Ondata di calore", energia: -10, economia: -15, inquinamento: 5 });
+                eventi.push({ nome: "🔥 Ondata di calore", energia: -30, economia: -25, inquinamento: 5 });
             }
             if (temperatura > 2.0 && LOL === 20) {
                 eventi.push({ nome: "🌾 Siccità", energia: -20, economia: -25, inquinamento: 10 });
             }
             if (inquinamento > 80 && LOL === 30) {
                 eventi.push({ nome: "🌊 Alluvione", energia: -15, economia: -30, inquinamento: 5 });
+            }
+            if (inquinamento > 100 && LOL === 30) {
+                eventi.push({ nome: "🌊 Alluvione pesante", energia: -25, economia: -50, inquinamento: 15 });
             }
             if (temperatura > 2.5 && LOL === 40) {
                 eventi.push({ nome: "❄️ Tempesta estrema", energia: -25, economia: -20, inquinamento: 5 });
@@ -147,7 +187,7 @@
                 energia += evento.energia;
                 economia += evento.economia;
                 inquinamento += evento.inquinamento;
-                mostraEvento(`⚠️ EVENTO CLIMATICO:\n${evento.nome}`);
+                mostraEvento(`⚠️ EVENTO:\n${evento.nome}`);
             }
         }
         function fineGioco(messaggio) {
@@ -163,25 +203,22 @@
             }
             if (tipo === 'carbone') {
                 energia += 30;
-                economia += 20;
+                economia -= 20;
                 inquinamento += 25;
             }else if (tipo === 'economia') {
                 energia -= 30;
                 economia += 50;
                 inquinamento += 50;
-            } else if (tipo === 'rinnovabili') {
+            } else if (tipo === 'rinnovabili'&& calmovento=== 0) {
                 energia += 15;
                 economia -= 5;
                 inquinamento -= 20;
-            } else if (tipo === 'efficienza') {
-                economia += 10;
-                inquinamento -= 1;
-            } else if (tipo === 'nucleare') {
+            } else if (tipo === 'nucleare' && odionucleare === 0 ) {
                 effettiNucleare++;
                 
                 if (Math.random() < 0.01) {
-                    economia -= 40;
-                    inquinamento += 40;
+                    economia -= 9999999999999999;
+                    inquinamento += 9999999999999;
                     mostraEvento("☢️ INCIDENTE NUCLEARE!");
                     effettiNucleare = 0;
                 } else if (effettiNucleare === 1) {
@@ -197,6 +234,7 @@
             }
             if (inquinamento < 0) inquinamento = 0;
             temperatura += inquinamento * 0.005;
+            if (odionucleare>0) odionucleare=0;
             sviluppo++;
             eventoClimatico();
             anniPassati.push(anno);
@@ -213,7 +251,12 @@
                 fineGioco("🏆 SIMULAZIONE COMPLETATA");
             } else if (economia < 0) {
                 fineGioco("💸 NON HAI PIÙ UN'ECONOMIA");
+            } else if (energia <= 0) {
+                fineGioco("💸 NON HAI PIÙ ENERGIA");
+            }else if (economia < 10 && temperatura >= 10 && lol=== 1) {
+                fineGioco("💸 NON HAI PIÙ ENERGIA");
             }
+
         }
         function resetTimer() {
             timeRemaining = annoTime;
